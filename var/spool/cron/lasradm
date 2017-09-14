@@ -1,0 +1,10 @@
+#!/bin/bash
+30 8 * * 1-5 /opt/sas/config/Lev1/SASAppVA/BatchServer/sasbatch.sh -log /opt/sas/config/Lev1/SASAppVA/BatchServer/Logs/get_batchstatus -batch -noterminal -sysin /opt/sas/config/Lev1/SASAppVA/SASEnvironment/SASCode/Jobs/get_batchstatus.sas > /dev/null %
+00 1 * * 1-5 /opt/sas/config/Lev1/SASAppVA/BatchServer/sasbatch.sh -log /opt/sas/config/Lev1/SASAppVA/BatchServer/Logs/ADSync -batch -noterminal -sysin /opt/sas/config/Lev1/SASAppVA/SASEnvironment/SASCode/Jobs/ADSync/ADSync.sas > /dev/null %
+00 22 * * 1-5 /opt/sas/config/Lev1/SASAppVA/BatchServer/sasbatch.sh -log /opt/sas/config/Lev1/SASAppVA/BatchServer/Logs/create_Backup -batch -noterminal -sysin /opt/sas/config/Lev1/SASAppVA/SASEnvironment/SASCode/Jobs/create_Backup.sas > /dev/null %
+00 19 * * 1-5 /opt/sas/config/Lev1/SASAppVA/BatchServer/sasbatch.sh -log /opt/sas/config/Lev1/SASAppVA/BatchServer/Logs/set_all_labels  -batch -noterminal -sysin /opt/sas/config/Lev1/SASAppVA/SASEnvironment/SASCode/Jobs/set_all_labels.sas > /dev/null %
+10 06,13 * * 1-5 /opt/sas/config/Lev1/SASAppVA/BatchServer/sasbatch.sh -log /opt/sas/config/Lev1/SASAppVA/BatchServer/Logs/checkServerStatus  -batch -noterminal -sysin /opt/sas/config/Lev1/SASAppVA/SASEnvironment/SASCode/Jobs/checkServerStatus.sas > /dev/null %
+00 09,14 * * 1 /opt/sas/config/Lev1/SASAppVA/BatchServer/sasbatch.sh -log /opt/sas/config/Lev1/SASAppVA/BatchServer/Logs/ladda_ryggsacksfiler  -batch -noterminal -sysin /opt/sas/config/Lev1/SASAppVA/SASEnvironment/SASCode/Jobs/ladda_ryggsacksfiler.sas > /dev/null %
+00 03 * * * /opt/sas/config/Lev1/SASAppVA/BatchServer/sasbatch.sh -log /opt/sas/config/Lev1/SASAppVA/BatchServer/Logs/Update_Audit_VisualAnalytics_fulload -batch -noterminal -sysin /opt/sas/config/Lev1/SASAppVA/SASEnvironment/SASCode/Jobs/Update_Audit_VisualAnalytics_fulload.sas > /dev/null %
+0 0 * * * /opt/sas/config/Lev1/Applications/SASVisualAnalytics/VisualAnalyticsAdministrator/EVDMLA/auditRefreshRunsas.sh
+30 18 * * * /opt/sas/config/Lev1/Applications/SASVisualAnalytics/VisualAnalyticsAdministrator/EVDMLA/runsas.sh > /dev/null 

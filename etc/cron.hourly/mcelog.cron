@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# do not run if mcelogd is running
+service mcelogd status >& /dev/null
+[ $? -eq 0 ] && exit 0
+
+# is mcelog supported?
+/usr/sbin/mcelog --supported >& /dev/null
+if [ $? -eq 1 ]; then
+       exit 1;
+fi
+
+/usr/sbin/mcelog --ignorenodev --filter >> /var/log/mcelog

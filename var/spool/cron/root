@@ -1,0 +1,4 @@
+#!/bin/bash
+00 02 * * 1-5 /etc/cron.daily/removeSASLogFiles.sh > /dev/null %
+00 06,13 * * 1-5 /etc/cron.daily/checkServerStatus.sh > /dev/null %
+# 40 11 07 * * /etc/cron.weekly/pgbackup_audit_archive.sh > /dev/null %
