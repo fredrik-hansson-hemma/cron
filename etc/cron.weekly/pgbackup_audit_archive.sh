@@ -17,6 +17,19 @@ hostname=`hostname`
 
 backup_name=/mnt/audit/prod/sharedservices_audit_archive_${hostname}_$dt.tar
 
+
+touch $backup_name
+
+if [ $? -ne 0 ]         # Om det inte går att skriva till backupfilen
+then
+	touch_error="Problemet är att det inte går att skriva till filen $backup_name. Antagligen är det den monterade disken som har hoppat bort igen. Kontakta MSI och be dem montera den på nytt."
+else
+	touch_error=" "
+fi
+
+
+
+
 # Startar postgres backup. Byt plats för backup till mountad disk. 
 pg_dump -h localhost -p 9432 -U SharedServices -w -a --inserts -t public.sas_audit_archive -t public.sas_audit_entry_archive > $backup_name 2> $LOG_FILE
 
@@ -39,6 +52,7 @@ else  			# Om backupen har gått illa, mejla.Här borde $MAINTANERS ersätta epo
   echo "=============================================" >> /tmp/pgmail_audit_archive.txt
   echo "" >> /tmp/pgmail_audit_archive.txt
   echo $LOG_FILE >> /tmp/pgmail_audit_archive.txt
+  echo "$touch_error" >> /tmp/pgmail_audit_archive.txt
   
 fi
 
