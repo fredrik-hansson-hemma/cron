@@ -30,7 +30,8 @@ fi
 
 
 
-# Startar postgres backup. Byt plats för backup till mountad disk. 
+# Startar postgres backup.
+# För att det här ska fungera behöver användarens lösenord finnas i filen ~/.pgpass
 pg_dump -h localhost -p 9432 -U SharedServices -w -a --inserts -t public.sas_audit_archive -t public.sas_audit_entry_archive > $backup_name 2> $LOG_FILE
 
 
@@ -39,13 +40,13 @@ then
   psql -h localhost -p 9432 -U SharedServices -w -c "truncate public.sas_audit_archive cascade;"
   psql -h localhost -p 9432 -U SharedServices -w -c "truncate public.sas_audit_entry_archive;"
   
-  echo "Subject: Complete - Postgresql audit_archive backup" > /tmp/pgmail_audit_archive.txt
+  echo "Subject: Complete - Postgresql audit_archive backup (${hostname})" > /tmp/pgmail_audit_archive.txt
   echo "" >> /tmp/pgmail_audit_archive.txt
   echo "Backup finns under $backup_name" >> /tmp/pgmail_audit_archive.txt
   
 else  			# Om backupen har gått illa, mejla.Här borde $MAINTANERS ersätta epostadress
 
-  echo "Subject: Error - Postgresql audit_archive backup" > /tmp/pgmail_audit_archive.txt
+  echo "Subject: Error - Postgresql audit_archive backup (${hostname})" > /tmp/pgmail_audit_archive.txt
   echo "" >> /tmp/pgmail_audit_archive.txt
   echo "Se felmeddelanden i $LOG_FILE" >> /tmp/pgmail_audit_archive.txt
   echo "" >> /tmp/pgmail_audit_archive.txt
