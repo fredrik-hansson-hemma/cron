@@ -37,8 +37,8 @@ pg_dump --host=localhost --port=9432 --username=SharedServices --no-password --d
 
 if [ $? -eq 0 ]         # Om backupen har gått bra, starta rensning av postgres tabeller.
 then
-  psql --host=localhost --port=9432 --username=SharedServices --no-password --clean "truncate public.sas_audit_archive cascade;"
-  psql --host=localhost --port=9432 --username=SharedServices --no-password --clean "truncate public.sas_audit_entry_archive;"
+  psql --host=localhost --port=9432 --username=SharedServices --no-password -c "truncate public.sas_audit_archive cascade;"
+  psql --host=localhost --port=9432 --username=SharedServices --no-password -c "truncate public.sas_audit_entry_archive;"
   
   echo "Subject: Complete - Postgresql audit_archive backup (${hostname})" > /tmp/pgmail_audit_archive.txt
   echo "" >> /tmp/pgmail_audit_archive.txt
