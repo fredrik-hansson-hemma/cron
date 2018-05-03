@@ -14,8 +14,10 @@ export LD_LIBRARY_PATH=$POSTGRES_HOME/lib:$LD_LIBRARY_PATH
 dt=`date +%Y%m%d`
 LOG_FILE=/tmp/postgresbackup_audit_archive_$dt.log
 hostname=`hostname`
-
-backup_name=/mnt/audit/prod/sharedservices_audit_archive_${hostname}_$dt.tar
+backup_folder=/mnt/audit/${hostname}
+# Parents-flaggan nedan finns endast för att slippa error om katalogen redan finns.
+[ -d $backup_folder ] || mkdir $backup_folder
+backup_name=$backup_folder/sharedservices_audit_archive_${hostname}_$dt.tar
 
 
 touch $backup_name
