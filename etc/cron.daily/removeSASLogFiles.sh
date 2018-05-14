@@ -5,7 +5,11 @@
 #
 # Delete logfiles older than 60 days
 # Script is running every weekday in crontab as Root.
-find /opt/sas/config/Lev1/Web/WebAppServer/SASServer1_1/logs/localhost_access_log*.txt -mtime +60 -exec rm '{}' \;
+
+# Flytta WebAppServerloggar till separat katalog. Rensar den katalogen regelbundet.
+find /opt/sas/config/Lev1/Web/WebAppServer/SASServer1_1/logs/localhost_access_log*.txt -mtime +7 -exec mv '{}' /SASLOG/WebAppServer/SASServer1_1/logs/ \;
+find /SASLOG/WebAppServer/SASServer1_1/logs/* -mtime +60 -exec rm '{}' \;
+
 find /opt/sas/config/Lev1/Web/WebServer/logs/access_*.log -mtime +60 -exec rm '{}' \;
 find /opt/sas/config/Lev1/Web/Logs/SASServer1_1/*.log.2* -mtime +60 -exec rm '{}' \;
 find /opt/sas/config/Lev1/SASApp_VA/PooledWorkspaceServer/Logs/*.log -mtime +60 -exec rm '{}' \;
@@ -16,6 +20,11 @@ find /opt/sas/config/Lev1/WebInfrastructurePlatformDataServer/Logs/*.log -mtime 
 find /opt/sas/config/Lev1/SchedulingServer/Logs/*.log -mtime +60 -exec rm '{}' \;
 find /opt/sas/config/Lev1/Applications/SASInformationRetrievalStudioforSAS/logs/pipeline-server_*.flatsite -mtime +60 -exec rm '{}' \;
 find /opt/sas/config/Lev1/Web/activemq/data/kahadb/*.log -mtime +30 -exec rm '{}' \;
+
+# Flytta metadataserverloggar till separat katalog. Rensar den katalogen regelbundet.
+find /opt/sas/config/Lev1/SASMeta/MetadataServer/Logs/SASMeta_MetadataServer_*.log -mtime +7 -exec mv '{}' /SASLOG/MetadataServer/Logs/ \;
+find /SASLOG/MetadataServer/Logs/SASMeta_MetadataServer_*.log -mtime +90 -exec rm '{}' \;
+
 # Delete Workspaceserver logfiles and dummy Workfolders older than 60 days
 find /opt/sas/config/Lev1/SASApp_VA/WorkspaceServer/Logs/*.log -mtime +60 -exec rm '{}' \;
 find /saswork/SAS_work* -mtime +60 -exec rm -r '{}' \;
