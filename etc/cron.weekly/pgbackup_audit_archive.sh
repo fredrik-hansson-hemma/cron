@@ -17,7 +17,7 @@ hostname=`hostname`
 backup_folder=/mnt/audit/${hostname}
 # Parents-flaggan nedan finns endast för att slippa error om katalogen redan finns.
 [ -d $backup_folder ] || mkdir $backup_folder
-backup_name=$backup_folder/sharedservices_audit_archive_${hostname}_$dt.tar
+backup_name=$backup_folder/sharedservices_audit_archive_${hostname}_$dt.sql
 
 
 touch $backup_name
